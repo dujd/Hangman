@@ -18,7 +18,8 @@ public class HangmanApp {
 				System.out.println();
 				System.out.println(game.getFormalCurrentGuess());
 				//Get guess
-				System.out.println("Enter a character: ");
+				System.out.println("Enter a character: \n");
+				System.out.println();
 				char guess = (sc.next().toLowerCase().charAt(0));
 				if ( guess >='a' && guess <='z') {
 				} else {

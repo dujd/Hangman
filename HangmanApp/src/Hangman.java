@@ -11,11 +11,22 @@ public class Hangman {
 	ArrayList<Character> previuosGuesses = new ArrayList<>();
 	
 	int maxTries = 10;
-	public int currentTry= 0;
+	int currentTry= 0;
+	static int wins = 0;
+	static int losses = 0;
+	
 	
 	ArrayList<String> dictionary = new ArrayList<>();
 	private static FileReader fileReader;
 	private static BufferedReader bufferedFileReader;
+	
+	private static void lose(){
+		losses++;
+	}
+	
+	private static void win(){
+		wins++;
+	}
 	
 	public Hangman() throws IOException {
 		initializeStreams();
@@ -66,9 +77,13 @@ public class Hangman {
 	public boolean gameOver() {
 		if (didWeWin()) {
 			System.out.println("Congrats, you won! \n");
+			win();
+			System.out.println("Wins: "+ wins + "  Losses :"+ losses);
 			return true;
 		}else if (didWeLose()) {
 			System.out.println("Sorry, you lost! \n" + "The word was : " + mysteryWord + ".");
+			lose();
+			System.out.println("Wins: "+ wins + "  Losses :"+ losses);
 			return true;
 		}
 		return false;
