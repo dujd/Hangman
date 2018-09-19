@@ -9,11 +9,15 @@ public class Hangman {
 	String mysteryWord;
 	StringBuilder currentGuess;
 	ArrayList<Character> previuosGuesses = new ArrayList<>();
+	String changedWord;
+	String orgWord;
 	
 	int maxTries = 10;
 	int currentTry= 0;
+	int attemps ;
 	static int wins = 0;
 	static int losses = 0;
+	
 	
 	
 	ArrayList<String> dictionary = new ArrayList<>();
@@ -32,6 +36,7 @@ public class Hangman {
 		initializeStreams();
 		mysteryWord = pickWord();
 		currentGuess = initializeCurrentGuess();
+	
 		
 	}
 	
@@ -56,8 +61,12 @@ public class Hangman {
 	public String pickWord() {
 		Random rand = new Random();
 		int wordIndex = Math.abs(rand.nextInt()) % dictionary.size();
-		return dictionary.get(wordIndex);
+		orgWord = dictionary.get(wordIndex);
+		String changedWord = dictionary.get(wordIndex).toLowerCase().replaceAll("\\s", "");
+		return changedWord;
+		
 	}
+	
 	
 	public StringBuilder initializeCurrentGuess() {
 		StringBuilder current = new StringBuilder();
@@ -76,12 +85,12 @@ public class Hangman {
 	
 	public boolean gameOver() {
 		if (didWeWin()) {
-			System.out.println("Congrats, you won! \n");
+			System.out.println("Congrats, you have revealed the word/phase: \n"+ orgWord.replaceAll("\\B|\\b"," "));
 			win();
 			System.out.println("Wins: "+ wins + "  Losses :"+ losses);
 			return true;
 		}else if (didWeLose()) {
-			System.out.println("Sorry, you lost! \n" + "The word was : " + mysteryWord + ".");
+			System.out.println("Sorry, you lost! \n" + "The word was : " + orgWord.replaceAll("\\B|\\b"," ") + ".");
 			lose();
 			System.out.println("Wins: "+ wins + "  Losses :"+ losses);
 			return true;
@@ -120,7 +129,8 @@ public class Hangman {
 		if(!isItAGoodGuess) {
 			currentTry++;
 		}
-		System.out.println(currentTry);
+		attemps = maxTries - currentTry;
+		System.out.println("Attemps left :" + attemps);
 		return isItAGoodGuess;
 	}
 

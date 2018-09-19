@@ -45,6 +45,7 @@ public class HangmanApp {
 			System.out.println("Do you want to play another game? Enter Y if you do.");
 			Character response = (sc.next().toUpperCase().charAt(0));
 			doYouWantToPlay = (response == 'Y');
+			
 		}
 
 	}
